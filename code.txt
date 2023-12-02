@@ -1,0 +1,7 @@
+// Cài tailwindcss
+https://tailwindcss.com/docs/guides/create-react-app
+
+npm install -D tailwindcss
+npx tailwindcss init
+
+reset live server: npm start
