@@ -20,6 +20,8 @@ npm install --save-dev @babel/plugin-proposal-private-property-in-object
 - utils     (for repeat functions)
 - pages
 
-// install ES7+ React/Redux/React-Native snippets
-
+// install extensions
+- ES7+ React/Redux/React-Native snippets
 using "rafce" shortcut
+
+- Tailwind CSS IntelliSense
