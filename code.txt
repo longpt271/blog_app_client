@@ -29,3 +29,5 @@ using "rafce" shortcut
 // import figma design
 https://drive.google.com/file/d/1hPLJW7cBDScHMMwBIRDaWiiOxQ5ZqpHr/view
 
+// add font
+https://fonts.google.com/
