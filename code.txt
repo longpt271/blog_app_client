@@ -8,3 +8,15 @@ reset live server: npm start
 
 // fix bug babel
 npm install --save-dev @babel/plugin-proposal-private-property-in-object
+
+// create needed folders
+
+- components
+- assets    (for all fonts, images,...)
+- hooks     (for custom hooks)
+- store     (for redux)
+- services  (for organization or API)
+- constants (for all constants variables)
+- utils     (for repeat functions)
+- pages
+
