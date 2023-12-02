@@ -38,7 +38,7 @@ const Header = () => {
         <div>
           <img className="w-16" src={images.Logo} alt="logo" />
         </div>
-        <div className="z-50">
+        <div className="lg:hidden z-50">
           {navIsVisible ? (
             <AiOutlineClose
               className="w-6 h-6"
@@ -51,14 +51,14 @@ const Header = () => {
         <div
           className={`${
             navIsVisible ? "right-0" : "-right-full"
-          } z-[49] flex flex-col w-full lg:w-auto justify-center lg:justify-end lg:flex-row fixed top-0 bottom-0 lg:static gap-x-9 items-center`}
+          } transition-all duration-300 mt-[56px] lg:mt-0 bg-dark-hard lg:bg-transparent z-[49] flex flex-col w-full lg:w-auto justify-center lg:justify-end lg:flex-row fixed top-0 bottom-0 lg:static gap-x-9 items-center`}
         >
-          <ul className="flex gap-x-2 font-semibold">
+          <ul className="text-white items-center gap-y-5 lg:text-dark-soft flex flex-col lg:flex-row gap-x-2 font-semibold">
             {navItemsInfo.map((item) => (
               <NavItem key={item.name} name={item.name} />
             ))}
           </ul>
-          <button className="border-2 border-blue-500 px-6 py-2 rounded-full text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300">
+          <button className="mt-5 lg:mt-0 border-2 border-blue-500 px-6 py-2 rounded-full text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300">
             Sign in
           </button>
         </div>
