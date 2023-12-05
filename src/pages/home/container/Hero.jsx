@@ -27,12 +27,20 @@ const Hero = () => {
             Search
           </button>
         </div>
-        <div>
-          <span>Popular Tags:</span>
-          <ul>
-            <li>Design</li>
-            <li>User Experience</li>
-            <li>User Interfaces</li>
+        <div className="flex mt-4 flex-col lg:flex-row lg:flex-nowrap lg:gap-x-4 lg:mt-7">
+          <span className="text-dark-light font-semibold italic">
+            Popular Tags:
+          </span>
+          <ul className="flex flex-wrap gap-x-2.5 gap-y-2.5 mt-3">
+            <li className="rounded-lg bg-primary bg-opacity-10 px-3 py-1.5 text-primary font-semibold">
+              Design
+            </li>
+            <li className="rounded-lg bg-primary bg-opacity-10 px-3 py-1.5 text-primary font-semibold">
+              User Experience
+            </li>
+            <li className="rounded-lg bg-primary bg-opacity-10 px-3 py-1.5 text-primary font-semibold">
+              User Interfaces
+            </li>
           </ul>
         </div>
       </div>
