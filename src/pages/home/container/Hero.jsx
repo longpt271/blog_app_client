@@ -27,8 +27,8 @@ const Hero = () => {
             Search
           </button>
         </div>
-        <div className="flex mt-4 flex-col lg:flex-row lg:flex-nowrap lg:gap-x-4 lg:mt-7">
-          <span className="text-dark-light font-semibold italic">
+        <div className="flex mt-4 flex-col lg:flex-row lg:items-start lg:flex-nowrap lg:gap-x-4 lg:mt-7">
+          <span className="text-dark-light font-semibold italic mt-2 lg:mt-4">
             Popular Tags:
           </span>
           <ul className="flex flex-wrap gap-x-2.5 gap-y-2.5 mt-3">
@@ -44,8 +44,12 @@ const Hero = () => {
           </ul>
         </div>
       </div>
-      <div className="hidden">
-        <img src={images.HeroImage} alt="users are reading articles" />
+      <div className="hidden lg:block lg:1/2">
+        <img
+          className="w-full"
+          src={images.HeroImage}
+          alt="users are reading articles"
+        />
       </div>
     </section>
   );
