@@ -1,4 +1,13 @@
 import React from "react";
+import {
+  AiOutlineTwitter,
+  AiFillYoutube,
+  AiFillInstagram,
+} from "react-icons/ai";
+import { FaFacebook } from "react-icons/fa";
+import { BsTelegram } from "react-icons/bs";
+
+import { images } from "../constants";
 
 const Footer = () => {
   return (
@@ -72,6 +81,43 @@ const Footer = () => {
             </li>
             <li>
               <a href="/">Changelog</a>
+            </li>
+          </ul>
+        </div>
+        <div className="col-span-10">
+          <img
+            src={images.Logo}
+            alt="logo"
+            className="brightness-0 invert mx-auto"
+          />
+          <p className="text-sm text-dark-light text-center mt-4">
+            Build a modern and creative website with crealand
+          </p>
+          <ul className="flex justify-center items-center mt-5 space-x-4 text-gray-300">
+            <li>
+              <a href="/">
+                <AiOutlineTwitter className="w-6 h-auto" />
+              </a>
+            </li>
+            <li>
+              <a href="/">
+                <AiFillYoutube className="w-6 h-auto" />
+              </a>
+            </li>
+            <li>
+              <a href="/">
+                <AiFillInstagram className="w-6 h-auto" />
+              </a>
+            </li>
+            <li>
+              <a href="/">
+                <FaFacebook className="w-6 h-auto" />
+              </a>
+            </li>
+            <li>
+              <a href="/">
+                <BsTelegram className="w-6 h-auto" />
+              </a>
             </li>
           </ul>
         </div>
