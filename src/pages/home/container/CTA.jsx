@@ -1,4 +1,5 @@
 import React from "react";
+import { images } from "../../../constants";
 
 const CTA = () => {
   return (
@@ -42,6 +43,25 @@ const CTA = () => {
               if you submit by 9pm today. If we received after 9pm will get a
               reponse the following day.
             </p>
+          </div>
+          <div className="col-span-12 hidden mb-[70px] md:block md:order-first">
+            <div className="w-3/4 mx-auto relative">
+              <div className="w-full rounded-xl bg-white p-3 z-[1] relative">
+                <img
+                  src={images.CtaImage}
+                  alt="title"
+                  className="w-full object-cover object-center h-auto md:h-52 lg:h-48 xl:h-60"
+                />
+                <div className="p-5">
+                  <h2 className="font-roboto font-bold text-xl text-dark-soft md:text-2xl lg:text-[28px]">
+                    Future of Work
+                  </h2>
+                  <p className="text-dark-light mt-3 text-sm md:text-lg">
+                    Majority of people will work in jobs that don’t exist today.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
