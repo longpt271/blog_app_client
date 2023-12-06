@@ -21,9 +21,9 @@ const CTA = () => {
       </svg>
 
       <section className="relative bg-dark-hard px-5">
-        <div className="container grid grid-cols-12 mx-auto py-10">
+        <div className="container grid grid-cols-12 mx-auto py-10 md:pb-20">
           <div className="col-span-12">
-            <h2 className="text-white font-roboto font-bold text-2xl">
+            <h2 className="text-white font-roboto font-bold text-2xl md:text-4xl md:text-center md:leading-normal">
               Get our stories delivered From us to your inbox weekly.
             </h2>
             <div className="w-full max-w-[494px] mt-12 space-y-3 mx-auto">
