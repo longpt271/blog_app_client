@@ -11,33 +11,37 @@ const ArticleCard = ({ className }) => {
       <img
         src={images.Post1Image}
         alt="title"
-        className="w-full object-cover object-center h-auto"
+        className="w-full object-cover object-center h-auto md:h-52"
       />
       <div className="p-5">
-        <h2 className="font-roboto font-bold text-xl text-dark-soft">
+        <h2 className="font-roboto font-bold text-xl text-dark-soft md:text-2xl">
           Future of Work
         </h2>
-        <p className="text-dark-light mt-3 text-sm">
+        <p className="text-dark-light mt-3 text-sm md:text-lg">
           Majority of people will work in jobs that don’t exist today.
         </p>
         <div className="flex justify-between flex-nowrap items-center mt-6">
-          <div className="flex items-center gap-x-2">
-            <img src={images.PostProfileImage} alt="post profile" />
+          <div className="flex items-center gap-x-2 md:gap-x-2.5">
+            <img
+              src={images.PostProfileImage}
+              alt="post profile"
+              className="w-9 h-9 md:w-10 md:h-10"
+            />
             <div className="flex flex-col">
-              <h4 className="font-bold italic text-dark-soft text-sm">
+              <h4 className="font-bold italic text-dark-soft text-sm md:text-base">
                 Viola Manisa
               </h4>
               <div className="flex items-center gap-x-2">
-                <span className="bg-[#36B37E] w-fit bg-opacity-20 p-1.5 rounded-full">
-                  <BsCheckLg className="w-1.5 h-1.5 text-[#36B37E]" />
+                <span className="bg-[#36B37E] w-fit bg-opacity-20 p-1 rounded-full">
+                  <BsCheckLg className="w-2.5 h-2.5 text-[#36B37E]" />
                 </span>
-                <span className="italic text-dark-light text-xs">
+                <span className="italic text-dark-light text-xs md:text-sm">
                   Verified writer
                 </span>
               </div>
             </div>
           </div>
-          <span className="font-bold text-dark-light italic text-sm">
+          <span className="font-bold text-dark-light italic text-sm md:text-base">
             02 May
           </span>
         </div>
