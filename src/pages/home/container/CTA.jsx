@@ -46,6 +46,8 @@ const CTA = () => {
           </div>
           <div className="col-span-12 hidden mb-[70px] md:block md:order-first">
             <div className="w-3/4 mx-auto relative">
+              <div className="w-1/2 h-1/2 bg-[#FC5A5A] rounded-lg absolute top-[10%] -right-[8%]" />
+              <div className="w-1/2 h-1/2 bg-white rounded-lg opacity-[.06] absolute -bottom-[10%] -left-[8%]" />
               <div className="w-full rounded-xl bg-white p-3 z-[1] relative">
                 <img
                   src={images.CtaImage}
