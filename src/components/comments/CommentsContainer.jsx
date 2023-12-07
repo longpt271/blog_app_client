@@ -21,12 +21,16 @@ const CommentsContainer = ({ className }) => {
         _id: "a",
         name: "Mohammad Rezaii",
       },
-      desc: "it was a nice post, Thank you!",
+      desc: value,
       post: "1",
-      parent: null,
-      replyOnUser: null,
+      parent: parent,
+      replyOnUser: replyOnUser,
       createdAt: "2022-12-31T17:22:05.092+0000",
     };
+
+    setComments((curState) => {
+      return [newComment, ...curState];
+    });
   };
 
   return (
