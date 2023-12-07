@@ -46,6 +46,7 @@ const CommentsContainer = ({ className, logginedUserId }) => {
       <div className="space-y-4 mt-8">
         {mainComments.map((comment) => (
           <Comment
+            key={comment._id}
             comment={comment}
             logginedUserId={logginedUserId}
             affectedComment={affectedComment}

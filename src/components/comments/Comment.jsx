@@ -71,7 +71,7 @@ const Comment = ({
         {isReplying && (
           <CommentForm
             btnLabel="Reply"
-            formSubmitHanlder={(value) =>
+            formSubmitHandler={(value) =>
               addComment(value, repliedCommentId, replyOnUserId)
             }
             formCancelHandler={() => setAffectedComment(null)}
