@@ -5,6 +5,7 @@ import { images } from "../../constants";
 
 const Comment = ({ comment, logginedUserId }) => {
   const isUserLoggined = Boolean(logginedUserId);
+  const commentBelongsToUser = logginedUserId === comment.user._id;
 
   return (
     <div className="flex flex-nowrap items-start gap-x-3 bg-[#F2F4F5] p-3 rounded-lg">
@@ -35,14 +36,18 @@ const Comment = ({ comment, logginedUserId }) => {
               <span>Reply</span>
             </button>
           )}
-          <button className="flex items-center space-x-2">
-            <FiEdit2 className="w-4 h-auto" />
-            <span>Edit</span>
-          </button>
-          <button className="flex items-center space-x-2">
-            <FiTrash className="w-4 h-auto" />
-            <span>Delete</span>
-          </button>
+          {commentBelongsToUser && (
+            <>
+              <button className="flex items-center space-x-2">
+                <FiEdit2 className="w-4 h-auto" />
+                <span>Edit</span>
+              </button>
+              <button className="flex items-center space-x-2">
+                <FiTrash className="w-4 h-auto" />
+                <span>Delete</span>
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>
