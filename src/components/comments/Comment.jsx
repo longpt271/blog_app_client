@@ -74,6 +74,7 @@ const Comment = ({
             formSubmitHanlder={(value) =>
               addComment(value, repliedCommentId, replyOnUserId)
             }
+            formCancelHandler={() => setAffectedComment(null)}
           />
         )}
       </div>
