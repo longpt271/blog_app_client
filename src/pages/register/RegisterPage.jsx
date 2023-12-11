@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import MainLayout from "../../components/MainLayout";
 import { signup } from "../../services/index/users";
 import { userActions } from "../../store/reducers/userReducers";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userState = useSelector((state) => state.user);
 
   const { mutate, isLoading } = useMutation({
     mutationFn: ({ name, email, password }) => {
@@ -25,6 +27,12 @@ const RegisterPage = () => {
       console.log(error);
     },
   });
+
+  useEffect(() => {
+    if (userState.userInfo) {
+      navigate("/");
+    }
+  }, [navigate, userState.userInfo]);
 
   const {
     register,
@@ -124,7 +132,7 @@ const RegisterPage = () => {
                 htmlFor="password"
                 className="text-[#5a7184] font-semibold block"
               >
-                Name
+                Password
               </label>
               <input
                 type="password"
@@ -171,7 +179,7 @@ const RegisterPage = () => {
                     }
                   },
                 })}
-                placeholder="Enter Confirm Password"
+                placeholder="Enter confirm password"
                 className={`placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border ${
                   errors.confirmPassword ? "border-red-500" : "border-[#c3cad9]"
                 }`}
@@ -189,7 +197,7 @@ const RegisterPage = () => {
             <button
               type="submit"
               disabled={!isValid || isLoading}
-              className="bg-primary text-white font-bold text-lg py-4 px-8 w-full rounded-lg mb-6 disabled:opacity-70 disabled:cursor-not-allowed"
+              className="bg-primary text-white font-bold text-lg py-4 px-8 w-full rounded-lg my-6 disabled:opacity-70 disabled:cursor-not-allowed"
             >
               Register
             </button>
