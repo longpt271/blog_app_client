@@ -1,8 +1,24 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import MainLayout from "../../components/MainLayout";
 
 const RegisterPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    watch,
+  } = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    mode: "onChange",
+  });
+
   const submitHandler = () => {};
 
   return (
@@ -12,7 +28,7 @@ const RegisterPage = () => {
           <h1 className="font-roboto text-2xl font-bold text-center text-dark-hard mb-8">
             Sign Up
           </h1>
-          <form onSubmit={submitHandler}>
+          <form onSubmit={handleSubmit(submitHandler)}>
             <div className="flex flex-col mb-6 w-full">
               <label
                 htmlFor="name"
@@ -23,6 +39,7 @@ const RegisterPage = () => {
               <input
                 type="text"
                 id="name"
+                {...register("name")}
                 placeholder="Enter name"
                 className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
               />
@@ -37,6 +54,7 @@ const RegisterPage = () => {
               <input
                 type="email"
                 id="email"
+                {...register("email")}
                 placeholder="Enter email"
                 className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
               />
@@ -51,6 +69,7 @@ const RegisterPage = () => {
               <input
                 type="password"
                 id="password"
+                {...register("password")}
                 placeholder="Enter password"
                 className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
               />
@@ -65,6 +84,7 @@ const RegisterPage = () => {
               <input
                 type="password"
                 id="confirmPassword"
+                {...register("confirmPassword")}
                 placeholder="Enter Confirm Password"
                 className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
               />

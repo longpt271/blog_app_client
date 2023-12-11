@@ -34,3 +34,6 @@ https://fonts.google.com/
 
 //
 npm i @reduxjs/toolkit react-redux
+
+//
+npm i react-hook-form
