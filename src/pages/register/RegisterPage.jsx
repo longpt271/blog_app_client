@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 import MainLayout from "../../components/MainLayout";
 import { signup } from "../../services/index/users";
@@ -13,6 +14,10 @@ const RegisterPage = () => {
     },
     onSuccess: (data) => {
       console.log(data);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+      console.log(error);
     },
   });
 
