@@ -21,6 +21,8 @@ const RegisterPage = () => {
 
   const submitHandler = () => {};
 
+  const password = watch("password");
+
   return (
     <MainLayout>
       <section className="container mx-auto px-5 py-10">
@@ -133,10 +135,27 @@ const RegisterPage = () => {
               <input
                 type="password"
                 id="confirmPassword"
-                {...register("confirmPassword")}
+                {...register("confirmPassword", {
+                  required: {
+                    value: true,
+                    message: "Confirm password is required",
+                  },
+                  validate: (value) => {
+                    if (value !== password) {
+                      return "Passwords do not match";
+                    }
+                  },
+                })}
                 placeholder="Enter Confirm Password"
-                className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
+                className={`placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border ${
+                  errors.confirmPassword ? "border-red-500" : "border-[#c3cad9]"
+                }`}
               />
+              {errors.confirmPassword?.message && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.confirmPassword?.message}
+                </p>
+              )}
             </div>
             <Link to="/forgot" className="text-sm font-semibold text-primary">
               Forgot password?
