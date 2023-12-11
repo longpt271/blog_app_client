@@ -19,7 +19,9 @@ const RegisterPage = () => {
     mode: "onChange",
   });
 
-  const submitHandler = () => {};
+  const submitHandler = (data) => {
+    console.log(data);
+  };
 
   const password = watch("password");
 
@@ -163,7 +165,8 @@ const RegisterPage = () => {
 
             <button
               type="submit"
-              className="bg-primary text-white font-bold text-lg py-4 px-8 w-full rounded-lg my-6"
+              disabled={!isValid}
+              className="bg-primary text-white font-bold text-lg py-4 px-8 w-full rounded-lg mb-6 disabled:opacity-70 disabled:cursor-not-allowed"
             >
               Register
             </button>
