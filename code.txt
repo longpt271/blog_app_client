@@ -37,3 +37,6 @@ npm i @reduxjs/toolkit react-redux
 
 //
 npm i react-hook-form
+
+// email validation
+https://stackoverflow.com/questions/63000638/form-pattern-validation-with-react-hook-form/67535345#67535345

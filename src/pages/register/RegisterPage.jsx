@@ -39,10 +39,26 @@ const RegisterPage = () => {
               <input
                 type="text"
                 id="name"
-                {...register("name")}
+                {...register("name", {
+                  minLength: {
+                    value: 1,
+                    message: "Name length must be at least 1 character",
+                  },
+                  required: {
+                    value: true,
+                    message: "Name is required",
+                  },
+                })}
                 placeholder="Enter name"
-                className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
+                className={`placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border ${
+                  errors.name ? "border-red-500" : "border-[#c3cad9]"
+                }`}
               />
+              {errors.name?.message && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.name?.message}
+                </p>
+              )}
             </div>
             <div className="flex flex-col mb-6 w-full">
               <label
@@ -54,10 +70,27 @@ const RegisterPage = () => {
               <input
                 type="email"
                 id="email"
-                {...register("email")}
+                {...register("email", {
+                  pattern: {
+                    value:
+                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    message: "Enter a valid email",
+                  },
+                  required: {
+                    value: true,
+                    message: "Email is required",
+                  },
+                })}
                 placeholder="Enter email"
-                className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
+                className={`placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border ${
+                  errors.email ? "border-red-500" : "border-[#c3cad9]"
+                }`}
               />
+              {errors.email?.message && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.email?.message}
+                </p>
+              )}
             </div>
             <div className="flex flex-col mb-6 w-full">
               <label
@@ -69,10 +102,26 @@ const RegisterPage = () => {
               <input
                 type="password"
                 id="password"
-                {...register("password")}
+                {...register("password", {
+                  required: {
+                    value: true,
+                    message: "Password is required",
+                  },
+                  minLength: {
+                    value: 6,
+                    message: "Password length must be at least 6 characters",
+                  },
+                })}
                 placeholder="Enter password"
-                className="placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border border-[#c3cad9]"
+                className={`placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border ${
+                  errors.password ? "border-red-500" : "border-[#c3cad9]"
+                }`}
               />
+              {errors.password?.message && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.password?.message}
+                </p>
+              )}
             </div>
             <div className="flex flex-col mb-6 w-full">
               <label
