@@ -1,9 +1,21 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+
 import MainLayout from "../../components/MainLayout";
+import { signup } from "../../services/index/users";
 
 const RegisterPage = () => {
+  const { mutate, isLoading } = useMutation({
+    mutationFn: ({ name, email, password }) => {
+      return signup({ name, email, password });
+    },
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
+
   const {
     register,
     handleSubmit,
@@ -20,7 +32,8 @@ const RegisterPage = () => {
   });
 
   const submitHandler = (data) => {
-    console.log(data);
+    const { name, email, password } = data;
+    mutate({ name, email, password });
   };
 
   const password = watch("password");
@@ -165,7 +178,7 @@ const RegisterPage = () => {
 
             <button
               type="submit"
-              disabled={!isValid}
+              disabled={!isValid || isLoading}
               className="bg-primary text-white font-bold text-lg py-4 px-8 w-full rounded-lg mb-6 disabled:opacity-70 disabled:cursor-not-allowed"
             >
               Register
