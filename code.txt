@@ -43,3 +43,6 @@ https://stackoverflow.com/questions/63000638/form-pattern-validation-with-react-
 
 // post user data to the backend
 npm i axios react-hot-toast @tanstack/react-query
+
+// crop image
+npm i react-easy-crop
