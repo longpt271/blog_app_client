@@ -2,13 +2,26 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
 
 import MainLayout from "../../components/MainLayout";
+import { getUserProfile } from "../../services/index/users";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.user);
+
+  const {
+    data: profileData,
+    isLoading: profileIsLoading,
+    error: profileError,
+  } = useQuery({
+    queryFn: () => {
+      return getUserProfile({ token: userState.userInfo.token });
+    },
+    queryKey: ["profile"],
+  });
 
   useEffect(() => {
     if (!userState.userInfo) {
@@ -25,6 +38,10 @@ const ProfilePage = () => {
       name: "",
       email: "",
       password: "",
+    },
+    values: {
+      name: profileIsLoading ? "" : profileData.name,
+      email: profileIsLoading ? "" : profileData.email,
     },
     mode: "onChange",
   });
@@ -133,7 +150,7 @@ const ProfilePage = () => {
 
             <button
               type="submit"
-              disabled={!isValid}
+              disabled={!isValid || profileIsLoading}
               className="bg-primary text-white font-bold text-lg py-4 px-8 w-full rounded-lg mb-6 disabled:opacity-70 disabled:cursor-not-allowed"
             >
               Register
