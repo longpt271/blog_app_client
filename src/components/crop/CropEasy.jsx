@@ -2,11 +2,39 @@ import React, { useState } from "react";
 import Cropper from "react-easy-crop";
 
 import getCroppedImg from "./cropImage";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { updateProfilePicture } from "../../services/index/users";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "../../store/reducers/userReducers";
+import { toast } from "react-hot-toast";
 
 const CropEasy = ({ photo, setOpenCrop }) => {
+  const userState = useSelector((state) => state.user);
+  const queryClient = useQueryClient();
+  const dispatch = useDispatch();
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setzoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+
+  const { mutate, isLoading } = useMutation({
+    mutationFn: ({ token, formData }) => {
+      return updateProfilePicture({
+        token: token,
+        formData: formData,
+      });
+    },
+    onSuccess: (data) => {
+      dispatch(userActions.setUserInfo(data));
+      setOpenCrop(false);
+      localStorage.setItem("account", JSON.stringify(data));
+      queryClient.invalidateQueries(["profile"]);
+      toast.success("Profile Photo is updated");
+    },
+    onError: (error) => {
+      toast.error(error.message);
+      console.log(error);
+    },
+  });
 
   const handleCropComplete = (cropedArea, cropedAreaPixels) => {
     setCroppedAreaPixels(cropedAreaPixels);
@@ -22,7 +50,12 @@ const CropEasy = ({ photo, setOpenCrop }) => {
 
       const formData = new FormData();
       formData.append("profilePicture", file);
-    } catch (error) {}
+
+      mutate({ token: userState.userInfo.token, formData: formData });
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error);
+    }
   };
   return (
     <div className="fixed z-[1000] inset-0 bg-black/50 flex justify-center p-5 overflow-auto">
@@ -59,12 +92,14 @@ const CropEasy = ({ photo, setOpenCrop }) => {
         </div>
         <div className="flex justify-between gap-2 flex-wrap">
           <button
+            disabled={isLoading}
             onClick={() => setOpenCrop(false)}
             className="px-5 py-2.5 rounded-lg text-red-500 border border-red-500 text-sm disabled:opacity-70"
           >
             Cancel
           </button>
           <button
+            disabled={isLoading}
             onClick={handleCropImage}
             className="px-5 py-2.5 rounded-lg text-white bg-blue-500 text-sm disabled:opacity-70"
           >
