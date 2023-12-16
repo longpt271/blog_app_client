@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 import { generateHTML } from "@tiptap/html";
 import Bold from "@tiptap/extension-bold";
 import Document from "@tiptap/extension-document";
@@ -58,6 +59,7 @@ const tagsData = [
 
 const ArticleDetailPage = () => {
   const { slug } = useParams();
+  const userState = useSelector((state) => state.user);
   const [breadCrumbsData, setbreadCrumbsData] = useState([]);
   const [body, setBody] = useState(null);
 
@@ -113,7 +115,12 @@ const ArticleDetailPage = () => {
               {data?.title}
             </h1>
             <div className="mt-4 prose prose-sm sm:prose-base">{body}</div>
-            <CommentsContainer className="mt-10" logginedUserId="a" />
+            <CommentsContainer
+              comments={data?.comments}
+              className="mt-10"
+              logginedUserId={userState?.userInfo?._id}
+              postSlug={slug}
+            />
           </article>
           <div>
             <SuggestedPosts
