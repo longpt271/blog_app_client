@@ -1,11 +1,14 @@
 import React from "react";
+import { Link, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+
 import MainLayout from "../../components/MainLayout";
 import BreadCrumbs from "../../components/BreadCrumbs";
 import { images } from "../../constants";
-import { Link } from "react-router-dom";
 import SuggestedPosts from "./container/SuggestedPosts";
 import CommentsContainer from "../../components/comments/CommentsContainer";
 import SocialShareButtons from "../../components/SocialShareButtons";
+import { getSinglePost } from "../../services/index/posts";
 
 const breadCrumbsData = [
   { name: "Home", link: "/" },
@@ -51,6 +54,15 @@ const tagsData = [
 ];
 
 const ArticleDetailPage = () => {
+  const { slug } = useParams();
+
+  const { isSuccess, data } = useQuery({
+    queryFn: () => getSinglePost({ slug }),
+  });
+  if (isSuccess) {
+    console.log(data);
+  }
+
   return (
     <MainLayout>
       <section className="container mx-auto max-w-5xl flex flex-col px-5 py-5 lg:flex-row lg:gap-x-5 lg:items-start">
