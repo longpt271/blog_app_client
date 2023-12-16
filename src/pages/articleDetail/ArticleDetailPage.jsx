@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
@@ -9,12 +9,6 @@ import SuggestedPosts from "./container/SuggestedPosts";
 import CommentsContainer from "../../components/comments/CommentsContainer";
 import SocialShareButtons from "../../components/SocialShareButtons";
 import { getSinglePost } from "../../services/index/posts";
-
-const breadCrumbsData = [
-  { name: "Home", link: "/" },
-  { name: "Blog", link: "/blog" },
-  { name: "Article title", link: "/blog/1" },
-];
 
 const postsData = [
   {
@@ -55,13 +49,20 @@ const tagsData = [
 
 const ArticleDetailPage = () => {
   const { slug } = useParams();
+  const [breadCrumbsData, setbreadCrumbsData] = useState([]);
 
-  const { isSuccess, data } = useQuery({
+  const { isLoading, isSuccess, data } = useQuery({
     queryFn: () => getSinglePost({ slug }),
   });
-  if (isSuccess) {
-    console.log(data);
-  }
+  useEffect(() => {
+    if (!isLoading && isSuccess && data) {
+      setbreadCrumbsData([
+        { name: "Home", link: "/" },
+        { name: "Blog", link: "/blog" },
+        { name: "Article title", link: `/blog/${data.slug}` },
+      ]);
+    }
+  }, [isLoading, isSuccess, data, slug]);
 
   return (
     <MainLayout>
