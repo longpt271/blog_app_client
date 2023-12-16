@@ -46,3 +46,6 @@ npm i axios react-hot-toast @tanstack/react-query
 
 // crop image
 npm i react-easy-crop
+
+// web sample image
+https://unsplash.com/s/photos/pattern

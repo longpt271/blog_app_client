@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import MainLayout from "../../components/MainLayout";
 import BreadCrumbs from "../../components/BreadCrumbs";
-import { images } from "../../constants";
+import { images, stables } from "../../constants";
 import SuggestedPosts from "./container/SuggestedPosts";
 import CommentsContainer from "../../components/comments/CommentsContainer";
 import SocialShareButtons from "../../components/SocialShareButtons";
@@ -71,8 +71,12 @@ const ArticleDetailPage = () => {
           <BreadCrumbs data={breadCrumbsData} />
           <img
             className="rounded-xl w-full"
-            src={images.Post1Image}
-            alt="laptop"
+            src={
+              data?.photo
+                ? stables.UPLOAD_FOLDER_BASE_URL + data?.photo
+                : images.samplePostImage
+            }
+            alt={data?.title}
           />
           <Link
             to="/blog?category=selectedCategory"
