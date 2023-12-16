@@ -78,14 +78,18 @@ const ArticleDetailPage = () => {
             }
             alt={data?.title}
           />
-          <Link
-            to="/blog?category=selectedCategory"
-            className="text-primary text-sm font-roboto inline-block mt-4"
-          >
-            EDUCATION
-          </Link>
+          <div className="mt-4 flex gap-2">
+            {data?.categories.map((category) => (
+              <Link
+                to={`/blog?category=${category.name}`}
+                className="text-primary text-sm font-roboto inline-block md:text-base"
+              >
+                {category.name}
+              </Link>
+            ))}
+          </div>
           <h1 className="text-xl font-medium font-roboto mt-4 text-dark-hard">
-            Help children get better education
+            {data?.title}
           </h1>
           <div className="mt-4 text-dark-soft">
             <p className="leading-7">
