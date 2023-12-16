@@ -15,7 +15,6 @@ const Articles = () => {
       console.log(error);
     },
   });
-  console.log(data);
 
   return (
     <section className="flex flex-col container mx-auto px-5 py-10">
