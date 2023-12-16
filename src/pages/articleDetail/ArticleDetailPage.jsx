@@ -61,6 +61,7 @@ const ArticleDetailPage = () => {
 
   const { isLoading, isSuccess, data } = useQuery({
     queryFn: () => getSinglePost({ slug }),
+    queryKey: ["blog", slug],
   });
   useEffect(() => {
     if (!isLoading && isSuccess && data) {
