@@ -60,3 +60,6 @@ npm i @tiptap/html
 
 // convert text to HTML
 npm i html-react-parser
+
+//
+ npm i -D @tailwindcss/typography

@@ -104,7 +104,7 @@ const ArticleDetailPage = () => {
           <h1 className="text-xl font-medium font-roboto mt-4 text-dark-hard">
             {data?.title}
           </h1>
-          <div className="mt-4 text-dark-soft">{body}</div>
+          <div className="mt-4 prose prose-sm sm:prose-base">{body}</div>
           <CommentsContainer className="mt-10" logginedUserId="a" />
         </article>
         <div>
