@@ -2,9 +2,17 @@ import React, { useState } from "react";
 
 import CommentForm from "./CommentForm";
 import Comment from "./Comment";
+import { useMutation } from "@tanstack/react-query";
+import { createNewComment } from "../../services/index/comments";
 
 const CommentsContainer = ({ className, logginedUserId, comments }) => {
   const [affectedComment, setAffectedComment] = useState(null);
+
+  const {} = useMutation({
+    mutationFn: ({ token, desc, slug, parent, replyOnUser }) => {
+      return createNewComment({ token, desc, slug, parent, replyOnUser });
+    },
+  });
 
   const addCommentHandler = (value, parent = null, replyOnUser = null) => {
     setAffectedComment(null);
