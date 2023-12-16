@@ -49,3 +49,11 @@ npm i react-easy-crop
 
 // web sample image
 https://unsplash.com/s/photos/pattern
+
+// tiptap editor
+npm install @tiptap/react @tiptap/pm @tiptap/starter-kit
+
+// tiptap sample JSON data
+https://tiptap.dev/guide/output
+
+npm i @tiptap/html

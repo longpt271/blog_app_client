@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { generateHTML } from "@tiptap/html";
+import Bold from "@tiptap/extension-bold";
+import Document from "@tiptap/extension-document";
+import Paragraph from "@tiptap/extension-paragraph";
+import Text from "@tiptap/extension-text";
+import Italic from "@tiptap/extension-italic";
 
 import MainLayout from "../../components/MainLayout";
 import BreadCrumbs from "../../components/BreadCrumbs";
@@ -50,6 +56,7 @@ const tagsData = [
 const ArticleDetailPage = () => {
   const { slug } = useParams();
   const [breadCrumbsData, setbreadCrumbsData] = useState([]);
+  const [body, setBody] = useState(null);
 
   const { isLoading, isSuccess, data } = useQuery({
     queryFn: () => getSinglePost({ slug }),
@@ -61,6 +68,10 @@ const ArticleDetailPage = () => {
         { name: "Blog", link: "/blog" },
         { name: "Article title", link: `/blog/${data.slug}` },
       ]);
+      console.log(
+        "HTML:",
+        generateHTML(data?.body, [Bold, Italic, Text, Paragraph, Document])
+      );
     }
   }, [isLoading, isSuccess, data, slug]);
 
@@ -91,17 +102,7 @@ const ArticleDetailPage = () => {
           <h1 className="text-xl font-medium font-roboto mt-4 text-dark-hard">
             {data?.title}
           </h1>
-          <div className="mt-4 text-dark-soft">
-            <p className="leading-7">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Egestas purus viverra accumsan in nisl nisi. Arcu cursus vitae
-              congue mauris rhoncus aenean vel elit scelerisque. In egestas erat
-              imperdiet sed euismod nisi porta lorem mollis. Morbi tristique
-              senectus et netus. Mattis pellentesque id nibh tortor id aliquet
-              lectus proin.
-            </p>
-          </div>
+          <div className="mt-4 text-dark-soft">{body}</div>
           <CommentsContainer className="mt-10" logginedUserId="a" />
         </article>
         <div>
