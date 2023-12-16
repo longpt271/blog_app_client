@@ -7,6 +7,7 @@ import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
 import Italic from "@tiptap/extension-italic";
+import parse from "html-react-parser";
 
 import MainLayout from "../../components/MainLayout";
 import BreadCrumbs from "../../components/BreadCrumbs";
@@ -68,9 +69,10 @@ const ArticleDetailPage = () => {
         { name: "Blog", link: "/blog" },
         { name: "Article title", link: `/blog/${data.slug}` },
       ]);
-      console.log(
-        "HTML:",
-        generateHTML(data?.body, [Bold, Italic, Text, Paragraph, Document])
+      setBody(
+        parse(
+          generateHTML(data?.body, [Bold, Italic, Text, Paragraph, Document])
+        )
       );
     }
   }, [isLoading, isSuccess, data, slug]);

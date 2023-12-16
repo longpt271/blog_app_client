@@ -57,3 +57,6 @@ npm install @tiptap/react @tiptap/pm @tiptap/starter-kit
 https://tiptap.dev/guide/output
 
 npm i @tiptap/html
+
+// convert text to HTML
+npm i html-react-parser
