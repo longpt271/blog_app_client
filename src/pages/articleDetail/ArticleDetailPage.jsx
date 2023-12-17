@@ -102,12 +102,8 @@ const ArticleDetailPage = () => {
                 Share on:
               </h2>
               <SocialShareButtons
-                url={encodeURI(
-                  "https://moonfo.com/post/client-side-and-server-side-explanation"
-                )}
-                title={encodeURIComponent(
-                  "Client-side and Server-side explanation"
-                )}
+                url={encodeURI(window.location.href)}
+                title={encodeURIComponent(data?.title)}
               />
             </div>
           </div>
