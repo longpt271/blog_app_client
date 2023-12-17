@@ -25,6 +25,16 @@ const Header = () => {
           <AiOutlineMenu className="w-6 h-6" onClick={toggleMenuHandler} />
         )}
       </div>
+      {/* sidebar container */}
+      {isMenuActive && (
+        <div className="fixed inset-0">
+          {/* underlay */}
+          <div
+            className="fixed inset-0 bg-black opacity-50"
+            onClick={toggleMenuHandler}
+          />
+        </div>
+      )}
     </header>
   );
 };
