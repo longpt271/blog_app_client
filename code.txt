@@ -63,3 +63,6 @@ npm i html-react-parser
 
 //
  npm i -D @tailwindcss/typography
+
+// prettier tailwindcss
+npm install -D prettier prettier-plugin-tailwindcss
