@@ -16,36 +16,9 @@ import { images, stables } from "../../constants";
 import SuggestedPosts from "./container/SuggestedPosts";
 import CommentsContainer from "../../components/comments/CommentsContainer";
 import SocialShareButtons from "../../components/SocialShareButtons";
-import { getSinglePost } from "../../services/index/posts";
+import { getSinglePost, getAllPosts } from "../../services/index/posts";
 import ArticleDetailSkeleton from "./components/ArticleDetailSkeleton";
 import ErrorMessage from "../../components/ErrorMessage";
-
-const postsData = [
-  {
-    _id: "1",
-    image: images.Post1Image,
-    title: "Help children get better education",
-    createdAt: "2023-06-06T10:04:35.886+00:00",
-  },
-  {
-    _id: "2",
-    image: images.Post1Image,
-    title: "Help children get better education",
-    createdAt: "2023-06-06T10:04:35.886+00:00",
-  },
-  {
-    _id: "3",
-    image: images.Post1Image,
-    title: "Help children get better education",
-    createdAt: "2023-06-06T10:04:35.886+00:00",
-  },
-  {
-    _id: "4",
-    image: images.Post1Image,
-    title: "Help children get better education",
-    createdAt: "2023-06-06T10:04:35.886+00:00",
-  },
-];
 
 const tagsData = [
   "Medical",
@@ -81,6 +54,11 @@ const ArticleDetailPage = () => {
       );
     }
   }, [isLoading, isSuccess, data, slug]);
+
+  const { data: postsData } = useQuery({
+    queryFn: () => getAllPosts(),
+    queryKey: ["posts"],
+  });
 
   return (
     <MainLayout>
