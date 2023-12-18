@@ -13,6 +13,13 @@ export const usePagination = ({
     if (totalPageNumbers >= totalPageCount) {
       return range(1, totalPageCount);
     }
+
+    // calculating the left and right sibling index
+    const leftSiblingIndex = Math.max(currentPage - siblingCount, 1);
+    const rightSiblingIndex = Math.min(
+      currentPage + siblingCount,
+      totalPageCount
+    );
   }, [siblingCount, currentPage, totalPageCount]);
 
   return paginationRange;
