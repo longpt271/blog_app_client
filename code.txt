@@ -85,3 +85,6 @@ npm install -D prettier prettier-plugin-tailwindcss
  //
  npm i lowlight@2.9.0
  npm i @tiptap/extension-color @tiptap/extension-text-style @tiptap/extension-code-block-lowlight
+
+//
+npm i @tiptap/extension-image @tiptap/extension-dropcursor
