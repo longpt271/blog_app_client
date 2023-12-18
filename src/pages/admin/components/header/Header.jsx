@@ -9,33 +9,6 @@ import { MdDashboard } from "react-icons/md";
 import NavItem from "./NavItem";
 import NavItemCollapse from "./NavItemCollapse";
 
-const MENU_ITEMS = [
-  {
-    title: "Dashboard",
-    link: "/admin",
-    icon: <AiFillDashboard className="text-xl" />,
-    name: "dashboard",
-    type: "link",
-  },
-  {
-    title: "Comments",
-    link: "/admin/comments",
-    icon: <FaComments className="text-xl" />,
-    name: "comments",
-    type: "link",
-  },
-  {
-    title: "Posts",
-    content: [
-      { title: "New", link: "/admin/posts/new" },
-      { title: "Manage", link: "/admin/posts/manage" },
-    ],
-    icon: <MdDashboard className="text-xl" />,
-    name: "posts",
-    type: "collapse",
-  },
-];
-
 const Header = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [activeNavName, setActiveNavName] = useState("dashboard");
@@ -83,29 +56,32 @@ const Header = () => {
             <h4 className="mt-10 font-bold text-[#C7C7C7]">MAIN MENU</h4>
             {/* menu items */}
             <div className="mt-6 flex flex-col gap-y-[0.563rem]">
-              {MENU_ITEMS.map((item) =>
-                item.type === "link" ? (
-                  <NavItem
-                    key={item.title}
-                    title={item.title}
-                    link={item.link}
-                    icon={item.icon}
-                    name={item.name}
-                    activeNavName={activeNavName}
-                    setActiveNavName={setActiveNavName}
-                  />
-                ) : (
-                  <NavItemCollapse
-                    key={item.title}
-                    title={item.title}
-                    content={item.content}
-                    icon={item.icon}
-                    name={item.name}
-                    activeNavName={activeNavName}
-                    setActiveNavName={setActiveNavName}
-                  />
-                )
-              )}
+              <NavItem
+                title="Dashboard"
+                link="/admin"
+                icon={<AiFillDashboard className="text-xl" />}
+                name="dashboard"
+                activeNavName={activeNavName}
+                setActiveNavName={setActiveNavName}
+              />
+              <NavItem
+                title="Comments"
+                link="/admin/comments"
+                icon={<FaComments className="text-xl" />}
+                name="comments"
+                activeNavName={activeNavName}
+                setActiveNavName={setActiveNavName}
+              />
+
+              <NavItemCollapse
+                title="Posts"
+                icon={<MdDashboard className="text-xl" />}
+                name="posts"
+                activeNavName={activeNavName}
+                setActiveNavName={setActiveNavName}
+              >
+                <Link to="/admin/posts/manage">Manage all posts</Link>
+              </NavItemCollapse>
             </div>
           </div>
         </div>
