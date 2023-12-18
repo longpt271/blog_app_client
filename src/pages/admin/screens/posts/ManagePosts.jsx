@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { images, stables } from "../../../../constants";
 import { getAllPosts } from "../../../../services/index/posts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Pagination from "../../../../components/Pagination";
+
+let isFirstRun = true;
 
 const ManagePosts = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -17,6 +19,14 @@ const ManagePosts = () => {
     queryFn: () => getAllPosts(searchKeyword, currentPage),
     queryKey: ["posts"],
   });
+
+  useEffect(() => {
+    if (isFirstRun) {
+      isFirstRun = false;
+      return;
+    }
+    refetch();
+  }, [refetch, currentPage]);
 
   const searchKeywordHandler = (e) => {
     const { value } = e.target;
