@@ -21,7 +21,7 @@ const CommentsContainer = ({
   const userState = useSelector((state) => state.user);
   const [affectedComment, setAffectedComment] = useState(null);
 
-  const { mutate: mutateNewComment, isLoading: isLoadingNewComment } =
+  const { mutate: mutateNewComment, isPending: isPendingNewComment } =
     useMutation({
       mutationFn: ({ token, desc, slug, parent, replyOnUser }) => {
         return createNewComment({ token, desc, slug, parent, replyOnUser });
@@ -94,7 +94,7 @@ const CommentsContainer = ({
       <CommentForm
         btnLabel="Send"
         formSubmitHandler={(value) => addCommentHandler(value)}
-        loading={isLoadingNewComment}
+        loading={isPendingNewComment}
       />
       <div className="space-y-4 mt-8">
         {comments.map((comment) => (

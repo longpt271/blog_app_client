@@ -16,7 +16,7 @@ const CropEasy = ({ photo, setOpenCrop }) => {
   const [zoom, setzoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: ({ token, formData }) => {
       return updateProfilePicture({
         token: token,
@@ -92,14 +92,14 @@ const CropEasy = ({ photo, setOpenCrop }) => {
         </div>
         <div className="flex justify-between gap-2 flex-wrap">
           <button
-            disabled={isLoading}
+            disabled={isPending}
             onClick={() => setOpenCrop(false)}
             className="px-5 py-2.5 rounded-lg text-red-500 border border-red-500 text-sm disabled:opacity-70"
           >
             Cancel
           </button>
           <button
-            disabled={isLoading}
+            disabled={isPending}
             onClick={handleCropImage}
             className="px-5 py-2.5 rounded-lg text-white bg-blue-500 text-sm disabled:opacity-70"
           >

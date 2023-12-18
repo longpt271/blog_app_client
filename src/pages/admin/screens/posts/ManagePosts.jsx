@@ -25,7 +25,7 @@ const ManagePosts = () => {
     queryKey: ["posts"],
   });
 
-  const { mutate: mutateDeletePost, isLoading: isLoadingDeletePost } =
+  const { mutate: mutateDeletePost, isPending: isPendingDeletePost } =
     useMutation({
       mutationFn: ({ slug, token }) => {
         return deletePost({
@@ -203,7 +203,7 @@ const ManagePosts = () => {
                         </td>
                         <td className="px-5 py-5 text-sm bg-white border-b border-gray-200 space-x-5">
                           <button
-                            disabled={isLoadingDeletePost}
+                            disabled={isPendingDeletePost}
                             type="button"
                             className="text-red-600 hover:text-red-900 disabled:opacity-70 disabled:cursor-not-allowed"
                             onClick={() => {

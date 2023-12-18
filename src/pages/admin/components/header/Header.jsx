@@ -21,7 +21,7 @@ const Header = () => {
   const [activeNavName, setActiveNavName] = useState("dashboard");
   const windowSize = useWindowSize();
 
-  const { mutate: mutateCreatePost, isLoading: isLoadingCreatePost } =
+  const { mutate: mutateCreatePost, isPending: isPendingCreatePost } =
     useMutation({
       mutationFn: ({ slug, token }) => {
         return createPost({
@@ -55,7 +55,6 @@ const Header = () => {
     mutateCreatePost({ token });
   };
 
-  console.log(isLoadingCreatePost);
   return (
     <header className="flex h-fit w-full items-center justify-between p-4 lg:h-full lg:max-w-[300px] lg:flex-col lg:items-start lg:justify-start lg:p-0">
       {/* logo */}
@@ -112,7 +111,7 @@ const Header = () => {
               >
                 <Link to="/admin/posts/manage">Manage all posts</Link>
                 <button
-                  disabled={isLoadingCreatePost}
+                  disabled={isPendingCreatePost}
                   className="text-start disabled:opacity-60 disabled:cursor-not-allowed"
                   onClick={() =>
                     handleCreateNewPost({ token: userState.userInfo.token })

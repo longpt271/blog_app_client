@@ -16,14 +16,14 @@ const ProfilePage = () => {
   const queryClient = useQueryClient();
   const userState = useSelector((state) => state.user);
 
-  const { data: profileData, isLoading: profileIsLoading } = useQuery({
+  const { data: profileData, isLoading } = useQuery({
     queryFn: () => {
       return getUserProfile({ token: userState.userInfo.token });
     },
     queryKey: ["profile"],
   });
 
-  const { mutate, isLoading: updateProfileIsLoading } = useMutation({
+  const { mutate, isPending: isPendingUpdateProfile } = useMutation({
     mutationFn: ({ name, email, password }) => {
       return updateProfile({
         token: userState.userInfo.token,
@@ -60,10 +60,10 @@ const ProfilePage = () => {
     },
     values: useMemo(() => {
       return {
-        name: profileIsLoading ? "" : profileData.name,
-        email: profileIsLoading ? "" : profileData.email,
+        name: isLoading ? "" : profileData.name,
+        email: isLoading ? "" : profileData.email,
       };
-    }, [profileData?.email, profileData?.name, profileIsLoading]),
+    }, [profileData?.email, profileData?.name, isLoading]),
     mode: "onChange",
   });
 
@@ -166,7 +166,7 @@ const ProfilePage = () => {
 
             <button
               type="submit"
-              disabled={!isValid || profileIsLoading || updateProfileIsLoading}
+              disabled={!isValid || isLoading || isPendingUpdateProfile}
               className="bg-primary text-white font-bold text-lg py-4 px-8 w-full rounded-lg mb-6 disabled:opacity-70 disabled:cursor-not-allowed"
             >
               Update

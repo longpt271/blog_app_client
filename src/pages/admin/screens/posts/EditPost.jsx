@@ -25,7 +25,7 @@ const EditPost = () => {
 
   const {
     mutate: mutateUpdatePostDetail,
-    isLoading: isLoadingUpdatePostDetail,
+    isPending: isPendingUpdatePostDetail,
   } = useMutation({
     mutationFn: ({ updatedData, slug, token }) => {
       return updatePost({
@@ -156,7 +156,7 @@ const EditPost = () => {
               )}
             </div>
             <button
-              disabled={isLoadingUpdatePostDetail}
+              disabled={isPendingUpdatePostDetail}
               type="button"
               onClick={handleUpdatePost}
               className="w-full bg-green-500 text-white font-semibold rounded-lg px-4 py-2 disabled:cursor-not-allowed disabled:opacity-70"
