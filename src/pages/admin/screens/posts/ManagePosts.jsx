@@ -140,6 +140,12 @@ const ManagePosts = () => {
                         Loading...
                       </td>
                     </tr>
+                  ) : postsData?.data?.length === 0 ? (
+                    <tr>
+                      <td colSpan={5} className="text-center py-10 w-full">
+                        No posts found
+                      </td>
+                    </tr>
                   ) : (
                     postsData?.data.map((post) => (
                       <tr>
