@@ -1,15 +1,19 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
-import { getSinglePost } from "../../../../services/index/posts";
+import { getSinglePost, updatePost } from "../../../../services/index/posts";
 import { Link, useParams } from "react-router-dom";
 import ArticleDetailSkeleton from "../../../articleDetail/components/ArticleDetailSkeleton";
 import ErrorMessage from "../../../../components/ErrorMessage";
 import parseJsonToHtml from "../../../../utils/parseJsonToHtml";
 import { stables } from "../../../../constants";
 import { HiOutlineCamera } from "react-icons/hi";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const EditPost = () => {
   const { slug } = useParams();
+  const queryClient = useQueryClient();
+  const userState = useSelector((state) => state.user);
   const [initialPhoto, setInitialPhoto] = useState(null);
   const [photo, setPhoto] = useState(null);
   const [body, setBody] = useState(null);
@@ -17,6 +21,27 @@ const EditPost = () => {
   const { data, isLoading, isError } = useQuery({
     queryFn: () => getSinglePost({ slug }),
     queryKey: ["blog", slug],
+  });
+
+  const {
+    mutate: mutateUpdatePostDetail,
+    isLoading: isLoadingUpdatePostDetail,
+  } = useMutation({
+    mutationFn: ({ updatedData, slug, token }) => {
+      return updatePost({
+        updatedData,
+        slug,
+        token,
+      });
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["blog", slug]);
+      toast.success("Post is updated");
+    },
+    onError: (error) => {
+      toast.error(error.message);
+      console.log(error);
+    },
   });
 
   useEffect(() => {
@@ -51,6 +76,12 @@ const EditPost = () => {
     }
 
     updatedData.append("document", JSON.stringify({}));
+
+    mutateUpdatePostDetail({
+      updatedData,
+      slug,
+      token: userState.userInfo.token,
+    });
   };
   return (
     <div>
@@ -101,6 +132,7 @@ const EditPost = () => {
             </h1>
             <div className="mt-4 prose prose-sm sm:prose-base">{body}</div>
             <button
+              disabled={isLoadingUpdatePostDetail}
               type="button"
               onClick={handleUpdatePost}
               className="w-full bg-green-500 text-white font-semibold rounded-lg px-4 py-2 disabled:cursor-not-allowed disabled:opacity-70"
