@@ -72,3 +72,6 @@ npm install -D prettier prettier-plugin-tailwindcss
 
  //
  npm i @uidotdev/usehooks
+
+ //
+ https://www.tailwind-kit.com/components/table
