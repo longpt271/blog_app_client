@@ -75,3 +75,10 @@ npm install -D prettier prettier-plugin-tailwindcss
 
  //
  https://www.tailwind-kit.com/components/table
+
+ // tiptap editor examples
+ https://tiptap.dev/docs/editor/examples/default
+
+ // source editor
+ https://gist.github.com/mohammadrz003/ba98723d104eaed4bc3ad9c8d6b24242
+ 
