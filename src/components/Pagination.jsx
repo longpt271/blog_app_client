@@ -71,8 +71,10 @@ const Pagination = ({
         })}
 
         <button
+          disabled={currentPage === lastPage}
           type="button"
-          className="w-full p-4 text-base text-gray-600 bg-white border-t border-b border-r rounded-r-xl hover:bg-gray-100"
+          className="w-full p-4 text-base text-gray-600 bg-white border-t border-b border-r rounded-r-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
+          onClick={onNext}
         >
           <svg
             width="9"
