@@ -1,6 +1,17 @@
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { images, stables } from "../../../../constants";
+import { getAllPosts } from "../../../../services/index/posts";
 
 const ManagePosts = () => {
+  const {
+    data: postsData,
+    isLoading,
+    isFetching,
+  } = useQuery({
+    queryFn: () => getAllPosts(),
+    queryKey: ["posts"],
+  });
+
   return (
     <div>
       <h1 className="text-2xl font-semibold">Mange Posts</h1>
@@ -64,51 +75,78 @@ const ManagePosts = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0">
-                          <a href="/" className="relative block">
-                            <img
-                              alt="profil"
-                              src="/images/person/8.jpg"
-                              className="mx-auto object-cover rounded-full h-10 w-10 "
-                            />
-                          </a>
-                        </div>
-                        <div className="ml-3">
+                  {isLoading || isFetching ? (
+                    <tr>
+                      <td colSpan={5} className="text-center py-10 w-full">
+                        Loading...
+                      </td>
+                    </tr>
+                  ) : (
+                    postsData?.data.map((post) => (
+                      <tr>
+                        <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0">
+                              <a href="/" className="relative block">
+                                <img
+                                  src={
+                                    post?.photo
+                                      ? stables.UPLOAD_FOLDER_BASE_URL +
+                                        post?.photo
+                                      : images.samplePostImage
+                                  }
+                                  alt={post.title}
+                                  className="mx-auto object-cover rounded-lg w-10 aspect-square"
+                                />
+                              </a>
+                            </div>
+                            <div className="ml-3">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                {post.title}
+                              </p>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
                           <p className="text-gray-900 whitespace-no-wrap">
-                            Jean marc
+                            {post.categories.length > 0
+                              ? post.categories[0]
+                              : "Uncategorized"}
                           </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                      <p className="text-gray-900 whitespace-no-wrap">Admin</p>
-                    </td>
-                    <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                      <p className="text-gray-900 whitespace-no-wrap">
-                        12/09/2020
-                      </p>
-                    </td>
-                    <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                      <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
-                        <span
-                          aria-hidden="true"
-                          className="absolute inset-0 bg-green-200 rounded-full opacity-50"
-                        ></span>
-                        <span className="relative">active</span>
-                      </span>
-                    </td>
-                    <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                      <a
-                        href="/"
-                        className="text-indigo-600 hover:text-indigo-900"
-                      >
-                        Edit
-                      </a>
-                    </td>
-                  </tr>
+                        </td>
+                        <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                          <p className="text-gray-900 whitespace-no-wrap">
+                            {new Date(post.createdAt).toLocaleDateString(
+                              "en-US",
+                              {
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric",
+                              }
+                            )}
+                          </p>
+                        </td>
+                        <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                          {post.tags.length > 0
+                            ? post.tags.map((tag, index) => (
+                                <p>
+                                  {tag}
+                                  {post.tags.length - 1 !== index && ","}
+                                </p>
+                              ))
+                            : "No tags"}
+                        </td>
+                        <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                          <a
+                            href="/"
+                            className="text-indigo-600 hover:text-indigo-900"
+                          >
+                            Edit
+                          </a>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
               <div className="flex flex-col items-center px-5 py-5 bg-white xs:flex-row xs:justify-between">
