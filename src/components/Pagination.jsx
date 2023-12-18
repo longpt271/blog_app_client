@@ -30,8 +30,10 @@ const Pagination = ({
     <div className="flex flex-col items-center px-5 py-5 bg-white xs:flex-row xs:justify-between">
       <div className="flex items-center">
         <button
+          disabled={currentPage === 1}
           type="button"
-          className="w-full p-4 text-base text-gray-600 bg-white border rounded-l-xl hover:bg-gray-100"
+          className="w-full p-4 text-base text-gray-600 bg-white border rounded-l-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
+          onClick={onPrevious}
         >
           <svg
             width="9"
@@ -50,24 +52,7 @@ const Pagination = ({
         >
           1
         </button>
-        <button
-          type="button"
-          className="w-full px-4 py-2 text-base text-gray-600 bg-white border hover:bg-gray-100"
-        >
-          2
-        </button>
-        <button
-          type="button"
-          className="w-full px-4 py-2 text-base text-gray-600 bg-white border-t border-b hover:bg-gray-100"
-        >
-          3
-        </button>
-        <button
-          type="button"
-          className="w-full px-4 py-2 text-base text-gray-600 bg-white border hover:bg-gray-100"
-        >
-          4
-        </button>
+
         <button
           type="button"
           className="w-full p-4 text-base text-gray-600 bg-white border-t border-b border-r rounded-r-xl hover:bg-gray-100"
