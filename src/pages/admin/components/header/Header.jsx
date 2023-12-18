@@ -76,6 +76,7 @@ const Header = () => {
               {MENU_ITEMS.map((item) =>
                 item.type === "link" ? (
                   <NavItem
+                    key={item.title}
                     title={item.title}
                     link={item.link}
                     icon={item.icon}
@@ -84,7 +85,15 @@ const Header = () => {
                     setActiveNavName={setActiveNavName}
                   />
                 ) : (
-                  <NavItemCollapse />
+                  <NavItemCollapse
+                    key={item.title}
+                    title={item.title}
+                    content={item.content}
+                    icon={item.icon}
+                    name={item.name}
+                    activeNavName={activeNavName}
+                    setActiveNavName={setActiveNavName}
+                  />
                 )
               )}
             </div>
