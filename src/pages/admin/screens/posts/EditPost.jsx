@@ -17,6 +17,7 @@ const EditPost = () => {
   const userState = useSelector((state) => state.user);
   const [initialPhoto, setInitialPhoto] = useState(null);
   const [photo, setPhoto] = useState(null);
+  const [body, setBody] = useState(null);
 
   const { data, isLoading, isError } = useQuery({
     queryFn: () => getSinglePost({ slug }),
@@ -74,7 +75,7 @@ const EditPost = () => {
       updatedData.append("postPicture", picture);
     }
 
-    updatedData.append("document", JSON.stringify({}));
+    updatedData.append("document", JSON.stringify({ body }));
 
     mutateUpdatePostDetail({
       updatedData,
@@ -146,7 +147,13 @@ const EditPost = () => {
             </h1>
             <div className="w-full">
               {!isLoading && !isError && (
-                <Editor content={data?.body} editable={true} />
+                <Editor
+                  content={data?.body}
+                  editable={true}
+                  onDataChange={(data) => {
+                    setBody(data);
+                  }}
+                />
               )}
             </div>
             <button
