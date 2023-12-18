@@ -30,6 +30,28 @@ const EditPost = () => {
     const file = e.target.files[0];
     setPhoto(file);
   };
+
+  const handleUpdatePost = async () => {
+    let updatedData = new FormData();
+
+    if (!initialPhoto && photo) {
+      updatedData.append("postPicture", photo);
+    } else if (initialPhoto && !photo) {
+      const urlToObject = async (url) => {
+        let reponse = await fetch(url);
+        let blob = await reponse.blob();
+        const file = new File([blob], initialPhoto, { type: blob.type });
+        return file;
+      };
+      const picture = await urlToObject(
+        stables.UPLOAD_FOLDER_BASE_URL + data?.photo
+      );
+
+      updatedData.append("postPicture", picture);
+    }
+
+    updatedData.append("document", JSON.stringify({}));
+  };
   return (
     <div>
       {isLoading ? (
@@ -78,6 +100,13 @@ const EditPost = () => {
               {data?.title}
             </h1>
             <div className="mt-4 prose prose-sm sm:prose-base">{body}</div>
+            <button
+              type="button"
+              onClick={handleUpdatePost}
+              className="w-full bg-green-500 text-white font-semibold rounded-lg px-4 py-2 disabled:cursor-not-allowed disabled:opacity-70"
+            >
+              Update Post
+            </button>
           </article>
         </section>
       )}
