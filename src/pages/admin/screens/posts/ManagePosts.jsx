@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { images, stables } from "../../../../constants";
 import { getAllPosts } from "../../../../services/index/posts";
 import { useState } from "react";
+import Pagination from "../../../../components/Pagination";
 
 const ManagePosts = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -169,6 +170,15 @@ const ManagePosts = () => {
                   )}
                 </tbody>
               </table>
+              {!isLoading && (
+                <Pagination
+                  onPageChange={(page) => setCurrentPage(page)}
+                  currentPage={currentPage}
+                  totalPageCount={JSON.parse(
+                    postsData?.headers?.["x-totalpagecount"]
+                  )}
+                />
+              )}
             </div>
           </div>
         </div>
