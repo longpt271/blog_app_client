@@ -32,7 +32,7 @@ const ArticleDetailPage = () => {
         { name: "Blog", link: "/blog" },
         { name: "Article title", link: `/blog/${data.slug}` },
       ]);
-      setBody(data?.body);
+      setBody(parseJsonToHtml(data?.body));
     }
   }, [isLoading, isSuccess, data, slug]);
 
