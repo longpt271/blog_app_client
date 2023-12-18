@@ -69,3 +69,6 @@ npm install -D prettier prettier-plugin-tailwindcss
 
 // daisyui
  npm i -D daisyui
+
+ //
+ npm i @uidotdev/usehooks
