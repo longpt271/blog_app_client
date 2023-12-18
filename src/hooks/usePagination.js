@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 
+export const DOTS = "...";
+
 export const usePagination = ({
   siblingCount = 1,
   currentPage,
@@ -20,6 +22,33 @@ export const usePagination = ({
       currentPage + siblingCount,
       totalPageCount
     );
+
+    // calculating that whether we want to show the left dots, right dots or both of them
+    // we don't show dots just when there is just one page number to be inserted between the sibling and the page limit
+    const shoudShowLeftDots = leftSiblingIndex > 2;
+    const shouldShowRightDots = rightSiblingIndex < totalPageCount - 2;
+
+    const firstPageIndex = 1;
+    const lastPageIndex = totalPageCount;
+
+    // State 2: No left dots to show, but right dots to be shown
+    if (!shoudShowLeftDots && shouldShowRightDots) {
+      let leftItemCount = 3 + 2 * siblingCount;
+      let leftrange = range(1, leftItemCount);
+
+      return [...leftrange, DOTS, totalPageCount];
+    }
+
+    // State 3: No right dots to show, but left dots to be shown
+    if (shoudShowLeftDots && !shouldShowRightDots) {
+      let rightItemCount = 3 + 2 * siblingCount;
+      let rightRange = range(
+        totalPageCount - rightItemCount + 1,
+        totalPageCount
+      );
+
+      return [firstPageIndex, DOTS, ...rightRange];
+    }
   }, [siblingCount, currentPage, totalPageCount]);
 
   return paginationRange;
