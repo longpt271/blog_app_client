@@ -63,8 +63,9 @@ const Pagination = ({
                   ? "text-white bg-blue-500"
                   : "text-gray-600 bg-white hover:bg-gray-100"
               }`}
+              onClick={() => onPageChange(pageNumber)}
             >
-              1
+              {pageNumber}
             </button>
           );
         })}
