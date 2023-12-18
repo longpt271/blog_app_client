@@ -5,6 +5,8 @@ import { Link, useParams } from "react-router-dom";
 import ArticleDetailSkeleton from "../../../articleDetail/components/ArticleDetailSkeleton";
 import ErrorMessage from "../../../../components/ErrorMessage";
 import parseJsonToHtml from "../../../../utils/parseJsonToHtml";
+import { stables } from "../../../../constants";
+import { HiOutlineCamera } from "react-icons/hi";
 
 const EditPost = () => {
   const { slug } = useParams();
@@ -23,6 +25,11 @@ const EditPost = () => {
       setBody(parseJsonToHtml(data?.body));
     }
   }, [data, isError, isLoading]);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setPhoto(file);
+  };
   return (
     <div>
       {isLoading ? (
@@ -32,6 +39,31 @@ const EditPost = () => {
       ) : (
         <section className="container mx-auto max-w-5xl flex flex-col px-5 py-5 lg:flex-row lg:gap-x-5 lg:items-start">
           <article className="flex-1">
+            <label htmlFor="postPicture" className="w-full cursor-pointer">
+              {photo ? (
+                <img
+                  src={URL.createObjectURL(photo)}
+                  alt={data?.title}
+                  className="rounded-xl w-full"
+                />
+              ) : initialPhoto ? (
+                <img
+                  src={stables.UPLOAD_FOLDER_BASE_URL + data?.photo}
+                  alt={data?.title}
+                  className="rounded-xl w-full"
+                />
+              ) : (
+                <div className="w-full min-h-[200px] bg-blue-50/50 flex justify-center items-center">
+                  <HiOutlineCamera className="w-7 h-auto text-primary" />
+                </div>
+              )}
+            </label>
+            <input
+              type="file"
+              className="sr-only"
+              id="postPicture"
+              onChange={handleFileChange}
+            />
             <div className="mt-4 flex gap-2">
               {data?.categories.map((category) => (
                 <Link
