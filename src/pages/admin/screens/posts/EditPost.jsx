@@ -83,6 +83,14 @@ const EditPost = () => {
       token: userState.userInfo.token,
     });
   };
+
+  const handleDeleteImage = () => {
+    if (window.confirm("Do you want to delete your Post picture?")) {
+      setInitialPhoto(null);
+      setPhoto(null);
+    }
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -117,6 +125,13 @@ const EditPost = () => {
               id="postPicture"
               onChange={handleFileChange}
             />
+            <button
+              type="button"
+              onClick={handleDeleteImage}
+              className="w-fit bg-red-500 text-sm text-white font-semibold rounded-lg px-2 py-1 mt-5"
+            >
+              Delete Image
+            </button>
             <div className="mt-4 flex gap-2">
               {data?.categories.map((category) => (
                 <Link
