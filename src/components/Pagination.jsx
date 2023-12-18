@@ -54,14 +54,20 @@ const Pagination = ({
               </button>
             );
           }
-        })}
 
-        <button
-          type="button"
-          className="w-full px-4 py-2 text-base text-indigo-500 bg-white border-t border-b hover:bg-gray-100 "
-        >
-          1
-        </button>
+          return (
+            <button
+              type="button"
+              className={`w-full px-4 py-2 text-base border ${
+                pageNumber === currentPage
+                  ? "text-white bg-blue-500"
+                  : "text-gray-600 bg-white hover:bg-gray-100"
+              }`}
+            >
+              1
+            </button>
+          );
+        })}
 
         <button
           type="button"
