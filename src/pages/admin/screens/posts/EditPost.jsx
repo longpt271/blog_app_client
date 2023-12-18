@@ -4,6 +4,7 @@ import { getSinglePost } from "../../../../services/index/posts";
 import { useParams } from "react-router-dom";
 import ArticleDetailSkeleton from "../../../articleDetail/components/ArticleDetailSkeleton";
 import ErrorMessage from "../../../../components/ErrorMessage";
+import parseJsonToHtml from "../../../../utils/parseJsonToHtml";
 
 const EditPost = () => {
   const { slug } = useParams();
@@ -19,7 +20,7 @@ const EditPost = () => {
   useEffect(() => {
     if (!isLoading && !isError) {
       setInitialPhoto(data?.photo);
-      setBody();
+      setBody(parseJsonToHtml(data?.body));
     }
   }, [data, isError, isLoading]);
   return (
