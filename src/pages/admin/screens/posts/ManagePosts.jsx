@@ -1,16 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
 import { images, stables } from "../../../../constants";
 import { getAllPosts } from "../../../../services/index/posts";
+import { useState } from "react";
 
 const ManagePosts = () => {
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+
   const {
     data: postsData,
     isLoading,
     isFetching,
+    refetch,
   } = useQuery({
-    queryFn: () => getAllPosts(),
+    queryFn: () => getAllPosts(searchKeyword, currentPage),
     queryKey: ["posts"],
   });
+
+  const searchKeywordHandler = (e) => {
+    const { value } = e.target;
+    setSearchKeyword(value);
+  };
+
+  const submitSearchKeywordHandler = (e) => {
+    e.preventDefault();
+    refetch();
+  };
 
   return (
     <div>
@@ -21,13 +36,18 @@ const ManagePosts = () => {
           <div className="flex flex-row justify-between w-full mb-1 sm:mb-0">
             <h2 className="text-2xl leading-tight">Users</h2>
             <div className="text-end">
-              <form className="flex flex-col justify-center w-3/4 max-w-sm space-y-3 md:flex-row md:w-full md:space-x-3 md:space-y-0">
+              <form
+                onSubmit={submitSearchKeywordHandler}
+                className="flex flex-col justify-center w-3/4 max-w-sm space-y-3 md:flex-row md:w-full md:space-x-3 md:space-y-0"
+              >
                 <div className=" relative ">
                   <input
                     type="text"
                     id='"form-subscribe-Filter'
                     className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                    placeholder="name"
+                    placeholder="Post title..."
+                    onChange={searchKeywordHandler}
+                    value={searchKeyword}
                   />
                 </div>
                 <button
