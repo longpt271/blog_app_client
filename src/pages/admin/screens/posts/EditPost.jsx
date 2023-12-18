@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { getSinglePost } from "../../../../services/index/posts";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ArticleDetailSkeleton from "../../../articleDetail/components/ArticleDetailSkeleton";
 import ErrorMessage from "../../../../components/ErrorMessage";
 import parseJsonToHtml from "../../../../utils/parseJsonToHtml";
@@ -46,30 +46,7 @@ const EditPost = () => {
               {data?.title}
             </h1>
             <div className="mt-4 prose prose-sm sm:prose-base">{body}</div>
-            <CommentsContainer
-              comments={data?.comments}
-              className="mt-10"
-              logginedUserId={userState?.userInfo?._id}
-              postSlug={slug}
-            />
           </article>
-          <div>
-            <SuggestedPosts
-              header="Latest Article"
-              posts={postsData?.data}
-              tags={data?.tags}
-              className="mt-8 lg:mt-0 lg:max-w-xs"
-            />
-            <div className="mt-7">
-              <h2 className="font-roboto font-medium text-dark-hard mb-4 md:text-xl">
-                Share on:
-              </h2>
-              <SocialShareButtons
-                url={encodeURI(window.location.href)}
-                title={encodeURIComponent(data?.title)}
-              />
-            </div>
-          </div>
         </section>
       )}
     </div>
