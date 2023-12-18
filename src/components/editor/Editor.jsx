@@ -1,7 +1,6 @@
 import { EditorContent, useEditor } from "@tiptap/react";
 import "highlight.js/styles/atom-one-dark.css";
 import MenuBar from "./MenuBar";
-import React from "react";
 import { extensions } from "../../constants/tiptapExtensions";
 
 const Editor = ({ onDataChange, content, editable }) => {

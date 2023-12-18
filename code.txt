@@ -81,4 +81,7 @@ npm install -D prettier prettier-plugin-tailwindcss
 
  // source editor
  https://gist.github.com/mohammadrz003/ba98723d104eaed4bc3ad9c8d6b24242
- 
+
+ //
+ npm i lowlight@2.9.0
+ npm i @tiptap/extension-color @tiptap/extension-text-style @tiptap/extension-code-block-lowlight
