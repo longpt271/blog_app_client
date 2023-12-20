@@ -10,6 +10,13 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import Editor from "../../../../components/editor/Editor";
 import MultiSelectTagDropdown from "../../components/select-dropdown/MultiSelectTagDropdown";
+import { getAllCategories } from "../../../../services/index/postCategories";
+import { filterCategories } from "../../../../utils/multiSelectTagUtils";
+
+const promiseOptions = async (inputValue) => {
+  const categoriesData = await getAllCategories();
+  return filterCategories(inputValue, categoriesData);
+};
 
 const EditPost = () => {
   const { slug } = useParams();
@@ -91,6 +98,8 @@ const EditPost = () => {
     }
   };
 
+  let isPostDataLoaded = !isLoading && !isError;
+
   return (
     <div>
       {isLoading ? (
@@ -149,10 +158,12 @@ const EditPost = () => {
               <label className="d-label">
                 <span className="d-label-text">categories</span>
               </label>
-              <MultiSelectTagDropdown />
+              {isPostDataLoaded && (
+                <MultiSelectTagDropdown loadOptions={promiseOptions} />
+              )}
             </div>
             <div className="w-full">
-              {!isLoading && !isError && (
+              {isPostDataLoaded && (
                 <Editor
                   content={data?.body}
                   editable={true}
