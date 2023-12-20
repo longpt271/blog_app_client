@@ -88,3 +88,6 @@ npm install -D prettier prettier-plugin-tailwindcss
 
 //
 npm i @tiptap/extension-image @tiptap/extension-dropcursor
+
+//
+npm i react-select

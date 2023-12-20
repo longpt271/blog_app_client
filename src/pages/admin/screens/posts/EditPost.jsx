@@ -9,6 +9,7 @@ import { HiOutlineCamera } from "react-icons/hi";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import Editor from "../../../../components/editor/Editor";
+import MultiSelectTagDropdown from "../../components/select-dropdown/MultiSelectTagDropdown";
 
 const EditPost = () => {
   const { slug } = useParams();
@@ -144,6 +145,12 @@ const EditPost = () => {
             <h1 className="text-xl font-medium font-roboto mt-4 text-dark-hard">
               {data?.title}
             </h1>
+            <div className="mb-5 mt-2">
+              <label className="d-label">
+                <span className="d-label-text">categories</span>
+              </label>
+              <MultiSelectTagDropdown />
+            </div>
             <div className="w-full">
               {!isLoading && !isError && (
                 <Editor
