@@ -39,6 +39,7 @@ const EditPost = () => {
   const { data, isLoading, isError } = useQuery({
     queryFn: () => getSinglePost({ slug }),
     queryKey: ["blog", slug],
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
@@ -46,6 +47,7 @@ const EditPost = () => {
       setInitialPhoto(data?.photo);
       setCategories(data.categories.map((item) => item._id));
       setTitle(data.title);
+      setCaption(data.caption);
       setTags(data.tags);
     }
   }, [data, isError, isLoading]);
@@ -158,17 +160,8 @@ const EditPost = () => {
             >
               Delete Image
             </button>
-            <div className="mt-4 flex gap-2">
-              {data?.categories.map((category) => (
-                <Link
-                  to={`/blog?category=${category.name}`}
-                  className="text-primary text-sm font-roboto inline-block md:text-base"
-                >
-                  {category.name}
-                </Link>
-              ))}
-            </div>
-            <div className="d-form-control w-full">
+
+            <div className="d-form-control w-full mt-4">
               <label className="d-label" htmlFor="title">
                 <span className="d-label-text">Title</span>
               </label>

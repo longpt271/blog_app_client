@@ -194,7 +194,7 @@ const ManagePosts = () => {
                         <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
                           {post.tags.length > 0
                             ? post.tags.map((tag, index) => (
-                                <p>
+                                <p key={index}>
                                   {tag}
                                   {post.tags.length - 1 !== index && ","}
                                 </p>

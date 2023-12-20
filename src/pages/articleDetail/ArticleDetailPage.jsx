@@ -63,10 +63,11 @@ const ArticleDetailPage = () => {
             <div className="mt-4 flex gap-2">
               {data?.categories.map((category) => (
                 <Link
-                  to={`/blog?category=${category.name}`}
+                  key={category.title}
+                  to={`/blog?category=${category.title}`}
                   className="text-primary text-sm font-roboto inline-block md:text-base"
                 >
-                  {category.name}
+                  {category.title}
                 </Link>
               ))}
             </div>
