@@ -6,12 +6,15 @@ import ArticleDetailSkeleton from "../../../articleDetail/components/ArticleDeta
 import ErrorMessage from "../../../../components/ErrorMessage";
 import { stables } from "../../../../constants";
 import { HiOutlineCamera } from "react-icons/hi";
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import Editor from "../../../../components/editor/Editor";
 import MultiSelectTagDropdown from "../../components/select-dropdown/MultiSelectTagDropdown";
 import { getAllCategories } from "../../../../services/index/postCategories";
-import { filterCategories } from "../../../../utils/multiSelectTagUtils";
+import {
+  categoryToOption,
+  filterCategories,
+} from "../../../../utils/multiSelectTagUtils";
 
 const promiseOptions = async (inputValue) => {
   const categoriesData = await getAllCategories();
@@ -162,6 +165,7 @@ const EditPost = () => {
               {isPostDataLoaded && (
                 <MultiSelectTagDropdown
                   loadOptions={promiseOptions}
+                  defaultValue={data.categories.map(categoryToOption)}
                   onChange={(newValue) =>
                     setCategories(newValue.map((item) => item.value))
                   }
