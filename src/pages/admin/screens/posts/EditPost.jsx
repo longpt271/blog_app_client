@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
+import CreatableSelect from "react-select/creatable";
 import { getSinglePost, updatePost } from "../../../../services/index/posts";
 import { Link, useParams } from "react-router-dom";
 import ArticleDetailSkeleton from "../../../articleDetail/components/ArticleDetailSkeleton";
@@ -30,6 +31,7 @@ const EditPost = () => {
   const [body, setBody] = useState(null);
   const [categories, setCategories] = useState(null);
   const [title, setTitle] = useState("");
+  const [tags, setTags] = useState(null);
 
   const { data, isLoading, isError } = useQuery({
     queryFn: () => getSinglePost({ slug }),
@@ -41,6 +43,7 @@ const EditPost = () => {
       setInitialPhoto(data?.photo);
       setCategories(data.categories.map((item) => item._id));
       setTitle(data.title);
+      setTags(data.tags);
     }
   }, [data, isError, isLoading]);
 
@@ -89,7 +92,10 @@ const EditPost = () => {
       updatedData.append("postPicture", picture);
     }
 
-    updatedData.append("document", JSON.stringify({ body, categories, title }));
+    updatedData.append(
+      "document",
+      JSON.stringify({ body, categories, title, tags })
+    );
 
     mutateUpdatePostDetail({
       updatedData,
@@ -181,6 +187,24 @@ const EditPost = () => {
                   onChange={(newValue) =>
                     setCategories(newValue.map((item) => item.value))
                   }
+                />
+              )}
+            </div>
+            <div className="mb-5 mt-2">
+              <label className="d-label">
+                <span className="d-label-text">tags</span>
+              </label>
+              {isPostDataLoaded && (
+                <CreatableSelect
+                  defaultValue={data.tags.map((tag) => ({
+                    value: tag,
+                    label: tag,
+                  }))}
+                  isMulti
+                  onChange={(newValue) =>
+                    setTags(newValue.map((item) => item.value))
+                  }
+                  className="relative z-20"
                 />
               )}
             </div>
