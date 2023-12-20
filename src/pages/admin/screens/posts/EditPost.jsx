@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import { getSinglePost, updatePost } from "../../../../services/index/posts";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import ArticleDetailSkeleton from "../../../articleDetail/components/ArticleDetailSkeleton";
 import ErrorMessage from "../../../../components/ErrorMessage";
 import { stables } from "../../../../constants";
@@ -25,6 +25,7 @@ const promiseOptions = async (inputValue) => {
 const EditPost = () => {
   const { slug } = useParams();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const userState = useSelector((state) => state.user);
   const [initialPhoto, setInitialPhoto] = useState(null);
   const [photo, setPhoto] = useState(null);
@@ -62,6 +63,7 @@ const EditPost = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries(["blog", slug]);
       toast.success("Post is updated");
+      navigate(`/admin/posts/manage/edit/${data.slug}`, { replace: true });
     },
     onError: (error) => {
       toast.error(error.message);
