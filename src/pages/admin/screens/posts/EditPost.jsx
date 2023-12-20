@@ -29,11 +29,20 @@ const EditPost = () => {
   const [photo, setPhoto] = useState(null);
   const [body, setBody] = useState(null);
   const [categories, setCategories] = useState(null);
+  const [title, setTitle] = useState("");
 
   const { data, isLoading, isError } = useQuery({
     queryFn: () => getSinglePost({ slug }),
     queryKey: ["blog", slug],
   });
+
+  useEffect(() => {
+    if (!isLoading && !isError) {
+      setInitialPhoto(data?.photo);
+      setCategories(data.categories.map((item) => item._id));
+      setTitle(data.title);
+    }
+  }, [data, isError, isLoading]);
 
   const {
     mutate: mutateUpdatePostDetail,
@@ -55,12 +64,6 @@ const EditPost = () => {
       console.log(error);
     },
   });
-
-  useEffect(() => {
-    if (!isLoading && !isError) {
-      setInitialPhoto(data?.photo);
-    }
-  }, [data, isError, isLoading]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -86,7 +89,7 @@ const EditPost = () => {
       updatedData.append("postPicture", picture);
     }
 
-    updatedData.append("document", JSON.stringify({ body, categories }));
+    updatedData.append("document", JSON.stringify({ body, categories, title }));
 
     mutateUpdatePostDetail({
       updatedData,
@@ -155,12 +158,21 @@ const EditPost = () => {
                 </Link>
               ))}
             </div>
-            <h1 className="text-xl font-medium font-roboto mt-4 text-dark-hard">
-              {data?.title}
-            </h1>
+            <div className="d-form-control w-full">
+              <label className="d-label" htmlFor="title">
+                <span className="d-label-text">Title</span>
+              </label>
+              <input
+                id="title"
+                value={title}
+                className="d-input d-input-bordered border-slate-300 !outline-slate-300 text-xl font-medium font-roboto text-dark-hard"
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="title"
+              />
+            </div>
             <div className="mb-5 mt-2">
               <label className="d-label">
-                <span className="d-label-text">categories</span>
+                <span className="d-label-text">Categories</span>
               </label>
               {isPostDataLoaded && (
                 <MultiSelectTagDropdown
