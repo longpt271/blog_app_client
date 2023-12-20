@@ -25,6 +25,7 @@ const EditPost = () => {
   const [initialPhoto, setInitialPhoto] = useState(null);
   const [photo, setPhoto] = useState(null);
   const [body, setBody] = useState(null);
+  const [categories, setCategories] = useState(null);
 
   const { data, isLoading, isError } = useQuery({
     queryFn: () => getSinglePost({ slug }),
@@ -82,7 +83,7 @@ const EditPost = () => {
       updatedData.append("postPicture", picture);
     }
 
-    updatedData.append("document", JSON.stringify({ body }));
+    updatedData.append("document", JSON.stringify({ body, categories }));
 
     mutateUpdatePostDetail({
       updatedData,
@@ -159,7 +160,12 @@ const EditPost = () => {
                 <span className="d-label-text">categories</span>
               </label>
               {isPostDataLoaded && (
-                <MultiSelectTagDropdown loadOptions={promiseOptions} />
+                <MultiSelectTagDropdown
+                  loadOptions={promiseOptions}
+                  onChange={(newValue) =>
+                    setCategories(newValue.map((item) => item.value))
+                  }
+                />
               )}
             </div>
             <div className="w-full">
